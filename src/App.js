@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import FileTransfer from "./components/FileTransfer";
+
 import io from "socket.io-client";
-import TextChat from "./components/TextChat";
 const socket = io("/webRTCPeers", {
   path: "/webrtc",
 });
@@ -10,11 +10,15 @@ function App() {
   const localVideoRef = useRef();
   const remoteVideoRef = useRef();
   const textRef = useRef();
+  const dc = useRef();
   const pc = useRef(new RTCPeerConnection(null));
+
   const [offerVisible, setOfferVisible] = useState(true);
   const [answerVisible, setAnswerVisible] = useState(false);
   const [status, setStatus] = useState("Make a call now");
-  const dc = useRef();
+  const [message, setMessage] = useState("");
+  const [sendMessageTo, setSendMessageTo] = useState([]);
+  const [receivedMessage, setReceivedMessage] = useState();
 
   // const peerConnection = new RTCPeerConnection();
   // const dc = peerConnection.createDataChannel("my channel");
@@ -146,6 +150,33 @@ function App() {
     setStatus("candidate added");
   };
 
+  const handleDataChannel = (event) => {
+    const remoteDc = event.channel;
+
+    remoteDc.onopen = () => {
+      console.log("Data channel is open");
+    };
+
+    remoteDc.onmessage = (e) => {
+      console.log(`Received message: ${e.data}`);
+      setReceivedMessage((prevMessages) => [...(prevMessages || []), e.data]);
+      // setReceivedMessage(e.data);
+    };
+
+    remoteDc.onclose = () => {
+      console.log("Data channel is closed");
+    };
+  };
+
+  const sendMessage = () => {
+    setSendMessageTo((prevMessages) => [...prevMessages, message]);
+    dc.current.send(message);
+    console.log(`Sent message: ${message}`);
+    // clear the message input after sending
+  };
+
+  pc.current.ondatachannel = handleDataChannel;
+
   return (
     <>
       <div style={{ margin: 10 }}>
@@ -201,7 +232,32 @@ function App() {
             width: "700px",
           }}
         >
-          <TextChat peerConnection={pc.current} dataChannel={dc.current} />
+          <input
+            type="text"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
+          <button onClick={sendMessage}>Send</button>
+
+          {/* <p>Sent message: {sendMessageTo.map((mess)={})}</p> */}
+          <div>
+            <p>Sent Message:</p>
+            {sendMessageTo && sendMessageTo.length > 0 ? (
+              sendMessageTo.map((mess, index) => <p key={index}>{mess}</p>)
+            ) : (
+              <p>No Sent Messages yet.</p>
+            )}
+          </div>
+          {/* <p>Received message: {receivedMessage}</p> */}
+
+          <div>
+            <p>Received message:</p>
+            {receivedMessage && receivedMessage.length > 0 ? (
+              receivedMessage.map((mess, index) => <p key={index}> {mess}</p>)
+            ) : (
+              <p>No Received Messages yet.</p>
+            )}
+          </div>
         </div>
       </div>
     </>

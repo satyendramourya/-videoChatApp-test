@@ -1,6 +1,15 @@
 import React from 'react'
+import { useState } from 'react';
 
 const TextChat = () => {
+
+    const [textToSend, setTextToSend] = useState('');
+
+    const handleSendData = () => {
+        const textArea = document.getElementById('dataChannelSend');
+        const textToSend = textArea.value;
+        setTextToSend(textToSend);
+    };
     return (
         <div id="container" >
 
@@ -8,20 +17,20 @@ const TextChat = () => {
                 <span>Transmit text</span></h1>
 
             <div id="buttons">
-                <button id="startButton">Start</button>
-                <button id="sendButton" disabled>Send</button>
-                <button id="closeButton" disabled>Stop</button>
+                <button id="sendButton" onClick={handleSendData}>Send</button>
             </div>
 
             <div id="sendReceive" style={{ display: "flex", flexDirection: "row", gap: "30px" }}>
                 <div id="send">
-                    <h2>Send</h2>
-                    <textarea id="dataChannelSend" disabled
+                    <h2 >Send</h2>
+                    <textarea id="dataChannelSend"
                         placeholder="Press Start, enter some text, then press Send."></textarea>
                 </div>
                 <div id="receive">
                     <h2>Receive</h2>
-                    <textarea id="dataChannelReceive" disabled></textarea>
+                    <div id="dataChannelReceive" style={{ height: "300px", width: "500px", backgroundColor: 'lightcoral' }}>
+                        {textToSend}
+                    </div>
                 </div>
             </div>
 

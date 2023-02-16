@@ -60,14 +60,6 @@ const FileTransfer = ({ peerConnection, dataChannel }) => {
             <button onClick={handleSendFileClick}>Send file</button>
             <p>{fileTransferStatus}</p>
         </div>
-        <div>
-            <p>
-                channel label : {dataChannel ? dataChannel.label : "no channel"}
-            </p>
-            <p>
-                channel readyState : {dataChannel ? dataChannel.readyState : "no readyState"}
-            </p>
-        </div>
     </>
     );
 };
