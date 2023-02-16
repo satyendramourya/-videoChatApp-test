@@ -44,7 +44,11 @@ const FileTransfer = ({ pc, dc }) => {
     // pc.current.ondatachannel = handleDataChannel;
     return (<>
 
-        <section>
+        <section
+            style={{
+
+                backgroundColor: "lightblue",
+            }}>
             <div >
                 <form id="fileInfo">
                     <input type="file" id="fileInput" name="files" />

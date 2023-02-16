@@ -141,64 +141,209 @@ function App() {
 
   const addCandidates = () => {
     const candidates = JSON.parse(textRef.current.value);
-    // candidates.forEach((candidate) => {
-    //   pc.current.addIceCandidate(new RTCIceCandidate(candidate));
-    // console.log(`Adding Candidate...`, candidates);
     pc.current.addIceCandidate(new RTCIceCandidate(candidates));
     setStatus("candidate added");
   };
 
   return (
-    <>
-      <div style={{ margin: 10 }}>
-        <video
-          style={{
-            width: 500,
-            height: 400,
-            margin: 5,
-            backgroundColor: "black",
-          }}
-          ref={localVideoRef}
-          autoPlay
-        ></video>
+    // <div
+    //   style={{
+    //     display: "grid",
+    //     gridTemplateColumns: "1fr 2fr 1fr", // Divide the width into three equal parts
+    //     gridTemplateRows: "1fr 3fr", // Divide the height into two parts
+    //     gridTemplateAreas: `
+    //         "local-video  remote-video text-chat"
+    //   "connection-area remote-video  file-transfer"
+    // `,
+    //     height: "100vh", // Set the height of the grid to the full viewport height
+    //   }}
+    // >
+    //   <div style={{ gridArea: "local-video" }}>
+    //     <video
+    //       style={{
+    //         backgroundColor: "black",
+    //       }}
+    //       ref={localVideoRef}
+    //       autoPlay
+    //     ></video>
+    //   </div>
 
-        <video
-          style={{
-            width: 500,
-            height: 400,
-            margin: 5,
-            backgroundColor: "black",
-          }}
-          ref={remoteVideoRef}
-          autoPlay
-        ></video>
-        <br />
+    //   <div style={{ gridArea: "connection-area" }}>
+    //     <div style={{}}>
+    //       <button onClick={createOffer}> Create Offer </button>
+    //       <button onClick={createAnswer}> Create Answer </button>
+    //       <button onClick={setRemoteDescription}>Set Remote Description</button>
+    //       <button onClick={addCandidates}> Add Candidates </button>
+    //     </div>
+    //     <textarea ref={textRef} style={{ height: "200px" }}></textarea>
+    //   </div>
 
-        <button onClick={createOffer}> Create Offer </button>
-        <button onClick={createAnswer}> Create Answer </button>
-        <button onClick={setRemoteDescription}> Set Remote Description</button>
-        <button onClick={addCandidates}> Add Candidates </button>
+    //   <div style={{ gridArea: "remote-video" }}>
+    //     <video
+    //       style={{
+    //         backgroundColor: "black",
+    //       }}
+    //       ref={remoteVideoRef}
+    //       autoPlay
+    //     ></video>
+    //   </div>
 
-        <div>{status}</div>
+    //   {/* <div>{status}</div>
 
-        <textarea
-          ref={textRef}
-          style={{ height: "200px", width: "700px" }}
-        ></textarea>
-        {console.log("dc.current", dc.current)}
-        {console.log("pc.current", pc.current)}
-        <div
-          style={{
-            height: "300px",
-            width: "700px",
-            backgroundColor: "lightblue",
-          }}
-        >
+    //   {console.log("dc.current", dc.current)}
+    //   {console.log("pc.current", pc.current)} */}
+    //   <div style={{ gridArea: "part-3" }}>
+    //     <TextChat style={{ gridArea: "text-chat" }} pc={pc} dc={dc} />
+    //     <FileTransfer style={{ gridArea: "file-transfer" }} pc={pc} dc={dc} />
+    //   </div>
+    // </div>
+
+    <section style={{ display: "flex", margin: "2px" }}>
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          display: "grid",
+
+          gridTemplateColumns: "1fr 2fr 1fr", // Divide the width into three equal parts
+          gridTemplateRows: "1fr 3fr", // Divide the height into two parts
+          gridTemplateAreas: `
+      "local-video  remote-video text-chat "
+      "connection-area  file-transfer ."
+    `,
+          gap: "10px",
+          height: "100vh", // Set the height of the grid to the full viewport height
+        }}
+      >
+        <div>
+          <div style={{ gridArea: "local-video" }}>
+            <video
+              style={{
+                backgroundColor: "black",
+                height: "100%",
+                width: "100%",
+              }}
+              ref={localVideoRef}
+              autoPlay
+            ></video>
+          </div>
+
+          <div style={{ gridArea: "connection-area", display: "grid" }}>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gridTemplateRows: "1fr 1fr",
+                gap: "10px",
+                marginBottom: "8px",
+              }}
+            >
+              <button
+                style={{
+                  backgroundColor: "#3452eb",
+                  color: "white",
+                  border: "none",
+                  paddingTop: "5px",
+                  paddingBottom: "5px",
+                  marginLeft: "8px",
+                  marginRight: "12px",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                }}
+                onClick={createOffer}
+              >
+                Create Offer
+              </button>
+              <button
+                style={{
+                  backgroundColor: "#3452eb",
+                  color: "white",
+                  border: "none",
+                  paddingTop: "5px",
+                  paddingBottom: "5px",
+                  marginLeft: "8px",
+                  marginRight: "12px",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                }}
+                onClick={createAnswer}
+              >
+                Create Answer
+              </button>
+              <button
+                style={{
+                  backgroundColor: "#3452eb",
+                  color: "white",
+                  border: "none",
+                  paddingTop: "5px",
+                  paddingBottom: "5px",
+                  marginLeft: "8px",
+                  marginRight: "12px",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                }}
+                onClick={setRemoteDescription}
+              >
+                Set Remote Description
+              </button>
+              <button
+                style={{
+                  backgroundColor: "#3452eb",
+                  color: "white",
+                  border: "none",
+                  paddingTop: "5px",
+                  paddingBottom: "5px",
+                  marginLeft: "8px",
+                  marginRight: "12px",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                }}
+                onClick={addCandidates}
+              >
+                Add Candidates
+              </button>
+            </div>
+            <textarea ref={textRef} style={{ height: "100px" }}></textarea>
+            <button
+              style={{
+                backgroundColor: "#3452eb",
+                color: "white",
+                border: "none",
+                paddingTop: "5px",
+                paddingBottom: "5px",
+                marginLeft: "20px",
+                marginRight: "20px",
+                marginBottom: "8px",
+                marginTop: "8px",
+                borderRadius: "5px",
+                cursor: "pointer",
+                display: "absolute",
+              }}
+              onClick={"sendText"}
+            >
+              copy
+            </button>
+            <textarea style={{ height: "100px" }} disabled></textarea>
+          </div>
+        </div>
+
+        <div style={{ gridArea: "remote-video" }}>
+          <video
+            style={{
+              backgroundColor: "black",
+              height: "70%",
+              width: "100%",
+            }}
+            ref={remoteVideoRef}
+            autoPlay
+          ></video>
           <FileTransfer pc={pc} dc={dc} />
         </div>
-        <TextChat pc={pc} dc={dc} />
+        <div style={{ gridArea: "text-chat" }}>
+          <TextChat pc={pc} dc={dc} />
+        </div>
       </div>
-    </>
+    </section>
   );
 }
 
