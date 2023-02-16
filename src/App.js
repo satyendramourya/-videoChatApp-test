@@ -185,9 +185,8 @@ function App() {
           ref={textRef}
           style={{ height: "200px", width: "700px" }}
         ></textarea>
-        {/* {console.log("pc.current", pc.current)}
+        {console.log("dc.current", dc.current)}
         {console.log("pc.current", pc.current)}
-        {console.log("dc", dc)} */}
         <div
           style={{
             height: "300px",
@@ -195,7 +194,7 @@ function App() {
             backgroundColor: "lightblue",
           }}
         >
-          <FileTransfer peerConnection={pc.current} dataChannel={dc.current} />
+          <FileTransfer pc={pc} dc={dc} />
         </div>
         <TextChat pc={pc} dc={dc} />
       </div>

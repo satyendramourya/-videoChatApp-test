@@ -47,7 +47,6 @@ const TextChat = ({ pc, dc }) => {
             />
             <button onClick={sendMessage}>Send</button>
 
-            {/* <p>Sent message: {sendMessageTo.map((mess)={})}</p> */}
             <div>
                 <p>Sent Message:</p>
                 {sendMessageTo && sendMessageTo.length > 0 ? (
@@ -56,7 +55,7 @@ const TextChat = ({ pc, dc }) => {
                     <p>No Sent Messages yet.</p>
                 )}
             </div>
-            {/* <p>Received message: {receivedMessage}</p> */}
+
 
             <div>
                 <p>Received message:</p>
