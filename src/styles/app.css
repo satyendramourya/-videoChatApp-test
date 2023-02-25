@@ -1,0 +1,75 @@
+.container {
+  display: "flex";
+  margin: "2px";
+  background-color: beige;
+}
+
+.grid-container {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 1fr 3fr;
+  grid-template-areas:
+    "local-video remote-video text-chat"
+    "connection-area file-transfer .";
+  gap: 10px;
+  height: 100vh;
+}
+
+.local-video {
+  grid-area: local-video;
+  background-color: black;
+  height: 100%;
+  width: 100%;
+}
+
+.connection-area {
+  grid-area: connection-area;
+  display: grid;
+  gap: 7px;
+}
+
+.text-area {
+  height: 100px;
+}
+
+.button-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+button {
+  background-color: #3452eb;
+  color: white;
+  border: none;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-left: 8px;
+  margin-right: 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button.green {
+  background-color: green;
+}
+
+.remote-video {
+  grid-area: remote-video;
+  background-color: black;
+  height: 70%;
+  width: 100%;
+}
+
+.file-transfer-container {
+  display: grid;
+  gap: 10px;
+}
+
+.text-chat-container {
+  grid-area: text-chat;
+}
